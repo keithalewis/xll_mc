@@ -30,3 +30,7 @@
 *.exe
 *.out
 *.app
+/.vs/xll_mc/FileContentIndex
+/.vs/xll_mc/v17/Preview
+/x64/Debug
+/.vs/xll_mc/v17
