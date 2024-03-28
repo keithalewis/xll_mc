@@ -46,24 +46,6 @@ BOOL WINAPI xll_stop(BOOL b)
 	return b;
 }
 
-
-static AddIn xai_stop(
-	Function(XLL_BOOL, "xll_stop", "MC.STOP")
-	.Arguments({
-		Arg(XLL_BOOL, "stop", "stop the simulation.")
-	})
-	.Category("MC")
-);
-BOOL WINAPI xll_stop(BOOL b)
-{
-#pragma XLLEXPORT
-	if (b) {
-		state_ = STOP;
-	}
-
-	return b;
-}
-
 // Reset a Monte Carlo simulation.
 static AddIn xai_reset(Macro("xll_reset", "MC.RESET"));
 int WINAPI xll_reset()
