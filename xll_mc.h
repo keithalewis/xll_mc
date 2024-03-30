@@ -28,10 +28,10 @@ struct monte {
 
 	void reset()
 	{
-		elapsed = { 0 };
 		count = 0;
 		state = INIT;
 		state_ = NEXT;
+		elapsed = { 0 };
 		calculate();
 		state = state_;
 	}

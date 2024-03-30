@@ -13,7 +13,7 @@ static AddIn xai_count(
 	})
 	.Volatile()
 	.FunctionHelp("Return current number of iterations run. Set number of iterations if non-zero.")
-	.Category("MC")
+	.Category(CATEGORY)
 );
 long WINAPI xll_count(long n)
 {
@@ -30,7 +30,7 @@ static AddIn xai_elapsed(
 	.Arguments({})
 	.Volatile()
 	.FunctionHelp("Return elapsed time in seconds.")
-	.Category("MC")
+	.Category(CATEGORY)
 );
 double WINAPI xll_elapsed()
 {
@@ -43,7 +43,7 @@ static AddIn xai_stop(
 	.Arguments({
 		Arg(XLL_BOOL, "stop", "stop the simulation.")
 		})
-	.Category("MC")
+	.Category(CATEGORY)
 );
 BOOL WINAPI xll_stop(BOOL b)
 {
@@ -60,7 +60,7 @@ static AddIn xai_pause(
 	.Arguments({
 		Arg(XLL_BOOL, "pause", "pause the simulation.")
 		})
-	.Category("MC")
+	.Category(CATEGORY)
 );
 BOOL WINAPI xll_pause(BOOL b)
 {
