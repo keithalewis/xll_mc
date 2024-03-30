@@ -1,6 +1,6 @@
 // mc_mean.cpp - mean value of a cell over a Monte Carlo simulation
 #include "xll_mc.h"
-
+/*
 struct mc_mean {
 	double* state; // count and running mean
 	mc_mean(double* state)
@@ -19,5 +19,6 @@ struct mc_mean {
 	void done()
 	{ }
 };
+*/
 
 using namespace xll;

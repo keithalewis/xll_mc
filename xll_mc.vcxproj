@@ -116,6 +116,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="mc_buffer.cpp" />
     <ClCompile Include="mc_mean.cpp" />
     <ClCompile Include="xll_mc.cpp" />
     <ClCompile Include="xll_random.cpp">
