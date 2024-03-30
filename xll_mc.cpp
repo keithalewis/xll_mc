@@ -13,7 +13,7 @@ int calc = xlcCalculateDocument; // xlcCalculateNow - entire workbook
 static AddIn xai_count(
 	Function(XLL_LONG, "xll_count", "MC.COUNT")
 	.Arguments({
-		Arg(XLL_LONG, "count", "is the optional number of iterations to run.")
+		Arg(XLL_FP, "count", "is the optional number of iterations to run.")
 	})
 	.Volatile()
 	.FunctionHelp("Return current number of iterations run. Set number of iterations if non-zero.")
