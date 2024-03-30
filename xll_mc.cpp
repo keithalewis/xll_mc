@@ -6,6 +6,25 @@ using namespace xll;
 
 monte mc;
 
+#ifdef _DEBUG
+static AddIn xai_state(
+	Function(XLL_LPOPER, "xll_state", "MC.STATE")
+	.Arguments({})
+	.Volatile()
+	.FunctionHelp("Return current and next state of Monte Carlo simulation.")
+);
+LPOPER WINAPI xll_state()
+{
+#pragma XLLEXPORT
+	static OPER o(1, 2, nullptr);
+
+	o[0] = mc_state_name[mc.state];
+	o[1] = mc_state_name[mc.state_];
+
+	return &o;
+}
+#endif // _DEBUG
+
 static AddIn xai_count(
 	Function(XLL_LONG, "xll_count", "MC.COUNT")
 	.Arguments({
@@ -81,17 +100,7 @@ int WINAPI xll_reset()
 
 	return 1;
 }
-/*
-// On<Key> xlo_monte_reset(ON_CTRL "T", "MONTE.RESET");
-Auto <OpenAfter> xaoa_monte_reset([]() {
-	Excel(xlcOnKey, OPER(ON_CTRL L"T"), OPER(L"MC.RESET"));
-	return TRUE;
-	});
-Auto <CloseBefore> xacb_monte_reset([]() {
-	Excel(xlcOnKey, OPER(ON_CTRL "T"));
-	return TRUE;
-	});
-*/
+OnKey xlo_monte_reset(ON_CTRL ON_SHIFT "T", "MC.RESET");
 
 // Single step a Monte Carlo simulation.
 static AddIn xai_step(Macro("xll_step", "MC.STEP"));
@@ -102,6 +111,7 @@ int WINAPI xll_step()
 
 	return 1;
 }
+OnKey xlo_monte_step(ON_CTRL ON_SHIFT "S", "MC.STEP");
 
 // Run a Monte Carlo simulation.
 static AddIn xai_run(Macro("xll_run", "MC.RUN"));
@@ -112,3 +122,4 @@ int WINAPI xll_run()
 
 	return 1;
 }
+OnKey xlo_monte_run(ON_CTRL ON_SHIFT "R", "MC.RUN");
