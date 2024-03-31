@@ -6,7 +6,7 @@
 #define CATEGORY "MC"
 #endif
 
-// Simulation sstates
+// Simulation states
 #define MC_STATE(X) \
 	X(IDLE, "not running") \
 	X(INIT, "starting") \
@@ -31,9 +31,33 @@ struct monte {
 	mc_state state, state_; // current and next state
 	int calc; // calculation mode
 	LARGE_INTEGER freq, start, stop, elapsed; // timing
+	long update; // update interval in milliseconds
+	void refresh()
+	{
+		// force screen to update
+		xll::OPER echo = xll::Excel(xlfGetWorkspace, 40); // screen updating
+		if (echo == false) {
+			::Excel12(xlcEcho, 0, 1, &xll::True);
+		}
+		//xll::Excel(xlcWorkbookScroll, 1);
+		//xll::Excel(xlcWorkbookScroll, -1);
+		if (echo == false) {
+			::Excel12(xlcEcho, 0, 1, &xll::False);
+		}
+	}
+	void message()
+	{
+		xll::OPER o = xll::Excel(xlfText, xll::OPER(1.*count), xll::OPER("0"));
+		//update = count/static_cast<long>(elapsed_seconds()*1000);
+		xll::Excel(xlcMessage, o);
+	}
 
 	monte()
-		: count(0), limit(LONG_MAX), state(IDLE), state_(IDLE), calc(xlcCalculateDocument), elapsed({ 0 })
+		: count(0), limit(LONG_MAX), 
+		  state(IDLE), state_(IDLE), 
+		  calc(xlcCalculateDocument), 
+		  start({ 0 }), stop({ 0 }), elapsed({ 0 }), 
+		  update(1)
 	{
 		QueryPerformanceFrequency(&freq);
 	}
@@ -89,8 +113,15 @@ struct monte {
 			++count;
 			calculate(state);
 			state = state_;
+			refresh();
+//			if (count % update == 0) {
+//				::Excel12(xlcEcho, 0, 1, &xll::True);
+//				message();
+//				::Excel12(xlcEcho, 0, 1, &xll::False);
+//			}
 		}
 		::Excel12(xlcEcho, 0, 1, &xll::True);
+		//message();
 		if (count == limit) {
 			state = STOP;
 		}

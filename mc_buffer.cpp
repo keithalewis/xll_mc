@@ -19,14 +19,14 @@ LPOPER WINAPI xll_mc_buffer(LPOPER pr)
 
 	try {
 		r = Excel(xlCoerce, Excel(xlfCaller));
+
 		if (mc.state == IDLE) {
 			ensure_message(rows(*pr) == 1,
 				__FUNCTION__ ": range must have one row");
-			ensure_message(columns(r) == columns(*pr),
-				__FUNCTION__ ": range and ouput range must have the same number of columns");
+			ensure_message(columns(*pr) == columns(r),
+				__FUNCTION__ ": input row and ouput range must have the same number of columns");
 		}
-
-		if (mc.state == INIT) {
+		else if (mc.state == INIT) {
 			for (int i = 0; i < size(r); ++i) {
 				r[i] = L"";
 			}
