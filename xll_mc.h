@@ -49,7 +49,7 @@ struct monte {
 	{
 		xll::OPER o = xll::Excel(xlfText, xll::OPER(1.*count), xll::OPER("0"));
 		//update = count/static_cast<long>(elapsed_seconds()*1000);
-		xll::Excel(xlcMessage, o);
+		xll::Excel(xlcMessage, xll::OPER(L"message"));
 	}
 
 	monte()
@@ -113,7 +113,7 @@ struct monte {
 			++count;
 			calculate(state);
 			state = state_;
-			refresh();
+//			refresh();
 //			if (count % update == 0) {
 //				::Excel12(xlcEcho, 0, 1, &xll::True);
 //				message();
@@ -121,7 +121,7 @@ struct monte {
 //			}
 		}
 		::Excel12(xlcEcho, 0, 1, &xll::True);
-		//message();
+//		message();
 		if (count == limit) {
 			state = STOP;
 		}
