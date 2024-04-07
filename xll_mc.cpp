@@ -107,6 +107,7 @@ static AddIn xai_stop(
 	.Arguments({
 		Arg(XLL_BOOL, "stop", "stop the simulation.")
 		})
+	.FunctionHelp("Cause the simulation to end.")
 	.Category(CATEGORY)
 );
 BOOL WINAPI xll_stop(BOOL b)
@@ -124,6 +125,7 @@ static AddIn xai_pause(
 	.Arguments({
 		Arg(XLL_BOOL, "pause", "pause the simulation.")
 		})
+	.FunctionHelp("Cause the simulation to pause.")
 	.Category(CATEGORY)
 );
 BOOL WINAPI xll_pause(BOOL b)

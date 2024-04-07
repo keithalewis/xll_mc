@@ -3,6 +3,11 @@
 
 using namespace xll;
 
+void mean_init(LPXLOPER12& o, double x)
+{
+
+}
+
 static AddIn xai_mc_mean(
 	Function(XLL_LPOPER, L"xll_mc_mean", L"MC.MEAN")
 	.Arguments({
