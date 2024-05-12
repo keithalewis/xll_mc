@@ -6,32 +6,6 @@ using namespace xll;
 
 monte mc;
 
-// seconds after now
-inline OPER timeout(double seconds)
-{
-	OPER o = Excel(xlfNow);
-	
-	Num(o) += seconds / 86400;
-
-	return o;
-}
-static AddIn xai_update(Macro("xll_update", "MC.UPDATE"));
-int WINAPI xll_update()
-{
-#pragma XLLEXPORT
-	//!!! update message bar
-	if (Excel(xlAbort) == true) {
-		mc.state_ = HALT;
-	}
-	else if (mc.state == NEXT) {
-		Excel(xlcOnTime, timeout(1), OPER("MC.UPDATE"));
-	}
-	Excel(xlfEcho, True);
-	Excel(xlfEcho, False);
-
-	return 1;
-}
-
 #ifdef _DEBUG
 static AddIn xai_state(
 	Function(XLL_LPOPER, "xll_state", "MC.STATE")
@@ -165,7 +139,6 @@ static AddIn xai_run(Macro("xll_run", "MC.RUN"));
 int WINAPI xll_run()
 {
 #pragma XLLEXPORT
-	Excel(xlcOnTime, timeout(1), OPER("MC.UPDATE"));
 	mc.run();
 
 	return 1;
