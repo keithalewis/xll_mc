@@ -11,7 +11,7 @@ using namespace xll;
 static AddIn xai_std_rand(
 	Function(XLL_DOUBLE, "xll_std_rand", "STD.RAND")
 	.Arguments({
-		Arg(XLL_HANDLEX, L"rng", L"is a handle to a PCG random number generator."),
+		Arg(XLL_HANDLEX, "rng", "is a handle to a PCG random number generator."),
 		})
 	.Volatile()
 	.Category("STD")
