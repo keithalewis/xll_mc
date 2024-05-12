@@ -65,7 +65,7 @@ struct monte {
         if (xll::Excel(xlAbort) == true) {
             state_ = HALT;
         }
-		// update
+		// update 5 times per second
         update = 1 + sps / 5;
     }
 
