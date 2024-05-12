@@ -58,16 +58,15 @@ struct monte {
 	{
         static wchar_t buf[1024];
 		auto es = elapsed_seconds();
-        auto sps = static_cast<long>(count/es);
+        auto sps = es ? static_cast<long>(count/es) : 0;
         buf[0] = static_cast<wchar_t>(swprintf(buf + 1, 1023, L"%ld [%ld/s] %.2fs", count, sps, es));
 		xll::Excel(xlcMessage, true, xll::Str(buf));
-        //refresh();
+        //DoEvents();
         if (xll::Excel(xlAbort) == true) {
             state_ = HALT;
         }
 		// update
-        update = sps / 5;
-        DoEvents();
+        update = 1 + sps / 5;
     }
 
 	monte()
@@ -100,6 +99,7 @@ struct monte {
 		state = IDLE;
 		state_ = IDLE;
 		elapsed = { 0 };
+        message();
 	}
 
 	void next()

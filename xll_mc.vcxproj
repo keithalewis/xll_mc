@@ -116,6 +116,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="mc.iota.cpp" />
     <ClCompile Include="mc_range.cpp" />
     <ClCompile Include="mc_buffer.cpp" />
     <ClCompile Include="mc_mean.cpp" />

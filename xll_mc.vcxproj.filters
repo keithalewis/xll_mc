@@ -27,7 +27,10 @@
     <ClCompile Include="mc_buffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="mc.range.cpp">
+    <ClCompile Include="mc_range.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mc.iota.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
