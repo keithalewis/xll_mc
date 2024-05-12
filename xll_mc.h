@@ -53,33 +53,22 @@ struct monte {
 	int calc; // calculation mode
 	LARGE_INTEGER freq, start, stop, elapsed; // timing
     long update; // number of iterations between updates
-	
-	void refresh()
-	{
-		// force screen to update
-		xll::OPER echo = xll::Excel(xlfGetWorkspace, 40); // screen updating
-		if (echo == false) {
-			//::Excel12(xlcEcho, 0, 1, &xll::True);
-            //DoEvents(100);
-        }
-		if (echo == false) {
-			//::Excel12(xlcEcho, 0, 1, &xll::False);
-		}
-	}
-	
+		
 	void message()
 	{
-        static char buf[256];
-        static XLOPER msg = { .val {.str = buf }, .xltype = xltypeStr };
-        static XLOPER t = { .val { .xbool = true }, .xltype = xltypeBool };
-        buf[0] = static_cast<char>(snprintf(buf + 1, 255, "%ld [%ld/s]", count, count / static_cast<long>(elapsed_seconds() * 1000)));
-		//update = count/static_cast<long>(elapsed_seconds()*1000);
-		::Excel4(xlcMessage, 0, 2, &t, &msg);
+        static wchar_t buf[1024];
+		auto es = elapsed_seconds();
+        auto sps = static_cast<long>(count/es);
+        buf[0] = static_cast<wchar_t>(swprintf(buf + 1, 1023, L"%ld [%ld/s] %.2fs", count, sps, es));
+		xll::Excel(xlcMessage, true, xll::Str(buf));
         //refresh();
         if (xll::Excel(xlAbort) == true) {
             state_ = HALT;
         }
-	}
+		// update
+        update = sps / 5;
+        DoEvents();
+    }
 
 	monte()
 		: count(0), limit(LONG_MAX), 
@@ -143,16 +132,18 @@ struct monte {
 		}
 		state = state_ = NEXT;
 
-		//::Excel12(xlcEcho, 0, 1, &xll::False);
+		::Excel12(xlcEcho, 0, 1, &xll::False);
 		// fold moniods
 		while (state == NEXT && count < limit) {
 			next();
 			if (count % update == 0) {
-				message();
-			}
+                ::Excel12(xlcEcho, 0, 1, &xll::True);
+                message();
+                ::Excel12(xlcEcho, 0, 1, &xll::False);
+            }
 		}
-		//::Excel12(xlcEcho, 0, 1, &xll::True);
-		//message();
+		::Excel12(xlcEcho, 0, 1, &xll::True);
+		message();
 		if (count == limit) {
 			state = STOP;
 		}
